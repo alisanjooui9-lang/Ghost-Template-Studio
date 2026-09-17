@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template | Ghost Template Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #050806;
+            --card: #0b100e;
+            --green: #00ff99;
+            --text: #fff;
+            --muted: #89958f;
+            --border: rgba(0,255,153,.13);
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(0,255,153,.12),
+                    transparent 35%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Tahoma, Arial, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 30px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(5,8,6,.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 22px 16px;
+        }
+
+        .preview {
+            width: 100%;
+            height: 230px;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            background:
+                linear-gradient(
+                    135deg,
+                    #15251f,
+                    #07100c
+                );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,255,153,.12);
+            color: var(--green);
+            border: 1px solid rgba(0,255,153,.25);
+            padding: 7px 10px;
+            border-radius: 9px;
+            font-size: 10px;
+        }
+
+        .info {
+            padding-top: 22px;
+        }
+
+        .category {
+            color: var(--green);
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: clamp(27px, 8vw, 42px);
+            line-height: 1.35;
+        }
+
+        .description {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .creator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--card);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #15251f;
+            border: 1px solid var(--border);
+            font-size: 19px;
+        }
+
+        .creator-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .creator-role {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 14px 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--green);
+            font-size: 16px;
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        button.action {
+            min-height: 52px;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .use-btn {
+            border: none;
+            background: var(--green);
+            color: #00150d;
+        }
+
+        .save-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+        }
+
+        .save-btn.saved {
+            color: var(--green);
+            border-color: rgba(0,255,153,.4);
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 13px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .feature {
+            padding: 15px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 12px;
+        }
+
+        .feature span {
+            color: var(--green);
+            margin-left: 5px;
+        }
+
+        .notice {
+            padding: 15px;
+            background: rgba(0,255,153,.05);
+            border: 1px solid rgba(0,255,153,.12);
+            border-radius: 15px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        @media (min-width: 700px) {
+            .preview {
+                height: 350px;
+            }
+
+            .actions {
+                max-width: 500px;
+            }
+
+            .features {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <button
+            class="back"
+            id="backButton"
+            type="button"
+        >
+            ←
+        </button>
+
+        <div class="header-title">
+            جزئیات قالب
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="preview">
+        <span class="preview-label">
+            Preview
+        </span>
+
+        <span id="templateIcon">
+            💼
+        </span>
+    </section>
+
+
+    <section class="info">
+
+        <div
+            class="category"
+            id="templateCategory"
+        >
+            نمونه‌کار
+        </div>
+
+        <h1 id="templateName">
+            Modern Portfolio
+        </h1>
+
+        <p
+            class="description"
+            id="templateDescription"
+        >
+            یک قالب مدرن و حرفه‌ای برای نمایش
+            نمونه‌کارها، پروژه‌ها و معرفی شخصی.
+        </p>
+
+
+        <div class="creator">
+
+            <div class="avatar">
+                👻
+            </div>
+
+            <div>
+                <div class="creator-name">
+                    Ghost Creator
+                </div>
+
+                <div class="creator-role">
+                    سازنده قالب
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="likes">0</strong>
+                <span>لایک</span>
+            </div>
+
+            <div class="stat">
+                <strong id="views">0</strong>
+                <span>بازدید</span>
+            </div>
+
+            <div class="stat">
+                <strong id="uses">0</strong>
+                <span>استفاده</span>
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="action use-btn"
+                id="useButton"
+                type="button"
+            >
+                🚀 استفاده از این قالب
+            </button>
+
+            <button
+                class="action save-btn"
+                id="saveButton"
+                type="button"
+            >
+                ♡ ذخیره قالب
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            امکانات قالب
+        </h2>
+
+        <div class="features">
+
+            <div class="feature">
+                <span>✓</span>
+                طراحی واکنش‌گرا
+            </div>
+
+            <div class="feature">
+                <span>✓</span>
+                موبایل‌فرندلی
+            </div>
+
+            <div class="feature">
+                <span>✓</span>
+                قابل شخصی‌سازی
+            </div>
+
+            <div class="feature">
+                <span>✓</span>
+                خروجی کد
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            درباره این قالب
+        </h2>
+
+        <div class="notice">
+
+            این بخش در نسخه نهایی شامل اطلاعات کامل
+            قالب، نسخه، تاریخ انتشار، دسته‌بندی،
+            سازنده، مجوز استفاده و اطلاعات بیشتر خواهد بود.
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const saveButton =
+        document.getElementById("saveButton");
+
+
+    let saved =
+        localStorage.getItem(
+            "ghost_saved_template"
+        ) === "true";
+
+
+    function updateSaveButton() {
+
+        if (saved) {
+
+            saveButton.textContent =
+                "✓ قالب ذخیره شد";
+
+            saveButton.classList.add("saved");
+
+        } else {
+
+            saveButton.textContent =
+                "♡ ذخیره قالب";
+
+            saveButton.classList.remove("saved");
+
+        }
+
+    }
+
+
+    saveButton.addEventListener(
+        "click",
+        () => {
+
+            saved = !saved;
+
+            localStorage.setItem(
+                "ghost_saved_template",
+                saved
+            );
+
+            updateSaveButton();
+
+        }
+    );
+
+
+    document
+        .getElementById("useButton")
+        .addEventListener("click", () => {
+
+            window.location.href =
+                "builder.html";
+
+        });
+
+
+    document
+        .getElementById("backButton")
+        .addEventListener("click", () => {
+
+            window.location.href =
+                "explore.html";
+
+        });
+
+
+    updateSaveButton();
+
+</script>
+
+</body>
+</html>
