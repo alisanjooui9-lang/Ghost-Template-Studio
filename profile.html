@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل | Ghost Template Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #050806;
+            --card: #0b100e;
+            --green: #00ff99;
+            --text: #fff;
+            --muted: #89958f;
+            --border: rgba(0,255,153,.13);
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(0,255,153,.12),
+                    transparent 35%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Tahoma, Arial, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 30px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(5,8,6,.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px 16px;
+        }
+
+        .profile-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,255,153,.08),
+                    rgba(0,255,153,.02)
+                );
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 25px 18px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 2px solid var(--green);
+            background: #101713;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            box-shadow: 0 0 30px rgba(0,255,153,.12);
+        }
+
+        .name {
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .username {
+            color: var(--green);
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .bio {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin: 12px auto 0;
+            max-width: 500px;
+        }
+
+        .verified {
+            display: none;
+            color: var(--green);
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 22px;
+        }
+
+        .stat {
+            background: rgba(0,0,0,.2);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 13px 5px;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--green);
+            font-size: 17px;
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 17px;
+        }
+
+        .action {
+            min-height: 48px;
+            border-radius: 13px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .edit {
+            border: none;
+            background: var(--green);
+            color: #00150d;
+        }
+
+        .logout {
+            border: 1px solid rgba(255,80,80,.25);
+            background: transparent;
+            color: #ff8585;
+        }
+
+        .section {
+            margin-top: 28px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 13px;
+        }
+
+        .settings {
+            display: grid;
+            gap: 9px;
+        }
+
+        .setting {
+            width: 100%;
+            min-height: 55px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--card);
+            color: white;
+            padding: 0 15px;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .setting-icon {
+            font-size: 21px;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .setting-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        .arrow {
+            color: #59645e;
+            font-size: 16px;
+        }
+
+        @media (min-width: 700px) {
+            .profile-card {
+                padding: 35px;
+            }
+
+            .settings {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <button
+            class="back"
+            id="backButton"
+            type="button"
+        >
+            ←
+        </button>
+
+        <div class="header-title">
+            👤 پروفایل
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="profile-card">
+
+        <div class="avatar">
+            👻
+        </div>
+
+        <div
+            class="name"
+            id="profileName"
+        >
+            Ghost Creator
+        </div>
+
+        <div
+            class="username"
+            id="profileUsername"
+        >
+            @ghost_user
+        </div>
+
+        <div
+            class="verified"
+            id="verified"
+        >
+            ✓ حساب تأییدشده Ghost
+        </div>
+
+        <p class="bio">
+            سازنده قالب‌های وب با Ghost Template Studio
+        </p>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="templatesCount">0</strong>
+                <span>قالب‌ها</span>
+            </div>
+
+            <div class="stat">
+                <strong id="followersCount">0</strong>
+                <span>دنبال‌کننده</span>
+            </div>
+
+            <div class="stat">
+                <strong id="likesCount">0</strong>
+                <span>لایک‌ها</span>
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="action edit"
+                id="editButton"
+                type="button"
+            >
+                ✏️ ویرایش پروفایل
+            </button>
+
+            <button
+                class="action logout"
+                id="logoutButton"
+                type="button"
+            >
+                خروج از حساب
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2 class="section-title">
+            تنظیمات
+        </h2>
+
+        <div class="settings">
+
+            <button
+                class="setting"
+                id="projectsButton"
+                type="button"
+            >
+                <span class="setting-icon">📁</span>
+
+                <span class="setting-info">
+                    <strong>پروژه‌های من</strong>
+                    <span>مدیریت پروژه‌ها و قالب‌های ساخته‌شده</span>
+                </span>
+
+                <span class="arrow">←</span>
+            </button>
+
+
+            <button
+                class="setting"
+                id="savedButton"
+                type="button"
+            >
+                <span class="setting-icon">🔖</span>
+
+                <span class="setting-info">
+                    <strong>قالب‌های ذخیره‌شده</strong>
+                    <span>قالب‌هایی که برای بعد ذخیره کرده‌ای</span>
+                </span>
+
+                <span class="arrow">←</span>
+            </button>
+
+
+            <button
+                class="setting"
+                id="supportButton"
+                type="button"
+            >
+                <span class="setting-icon">🆘</span>
+
+                <span class="setting-info">
+                    <strong>پشتیبانی</strong>
+                    <span>ارسال درخواست و دریافت کمک</span>
+                </span>
+
+                <span class="arrow">←</span>
+            </button>
+
+
+            <button
+                class="setting"
+                id="aboutButton"
+                type="button"
+            >
+                <span class="setting-icon">ℹ️</span>
+
+                <span class="setting-info">
+                    <strong>درباره Ghost Studio</strong>
+                    <span>اطلاعات برنامه</span>
+                </span>
+
+                <span class="arrow">←</span>
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const savedUser =
+        localStorage.getItem("ghost_user");
+
+
+    if (!savedUser) {
+
+        window.location.href =
+            "auth.html";
+
+    }
+
+
+    let user = null;
+
+
+    try {
+
+        user =
+            savedUser
+                ? JSON.parse(savedUser)
+                : null;
+
+    } catch {
+
+        user = null;
+
+    }
+
+
+    if (user) {
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            user.name || "Ghost Creator";
+
+
+        document.getElementById(
+            "profileUsername"
+        ).textContent =
+            "@" +
+            (user.username || "ghost_user");
+
+    }
+
+
+    const projects =
+        localStorage.getItem(
+            "ghost_projects"
+        );
+
+
+    let projectList = [];
+
+
+    try {
+
+        projectList =
+            projects
+                ? JSON.parse(projects)
+                : [];
+
+    } catch {
+
+        projectList = [];
+
+    }
+
+
+    document.getElementById(
+        "templatesCount"
+    ).textContent =
+        projectList.length;
+
+
+    document.getElementById(
+        "projectsButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "projects.html";
+
+        }
+    );
+
+
+    document.getElementById(
+        "backButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "studio.html";
+
+        }
+    );
+
+
+    document.getElementById(
+        "editButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "ویرایش پروفایل در مرحله بعد فعال می‌شود."
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "savedButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "قالب‌های ذخیره‌شده در مرحله بعد فعال می‌شوند."
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "supportButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "بخش پشتیبانی در مرحله بعد ساخته می‌شود."
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "aboutButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "Ghost Template Studio\n\nCreate • Customize • Share"
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "logoutButton"
+    ).addEventListener(
+        "click",
+        () => {
+
+            const confirmLogout =
+                confirm(
+                    "از حساب خود خارج می‌شوی؟"
+                );
+
+            if (!confirmLogout) {
+                return;
+            }
+
+            localStorage.removeItem(
+                "ghost_user"
+            );
+
+            window.location.href =
+                "auth.html";
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
