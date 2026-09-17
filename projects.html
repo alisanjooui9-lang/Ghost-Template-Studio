@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروژه‌های من | Ghost Template Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #050806;
+            --card: #0b100e;
+            --green: #00ff99;
+            --text: #fff;
+            --muted: #89958f;
+            --border: rgba(0,255,153,.13);
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(0,255,153,.12),
+                    transparent 35%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Tahoma, Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(5,8,6,.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .title {
+            flex: 1;
+        }
+
+        .title h1 {
+            font-size: 17px;
+        }
+
+        .title p {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px 16px;
+        }
+
+        .intro {
+            margin-bottom: 24px;
+        }
+
+        .intro small {
+            color: var(--green);
+            font-size: 11px;
+        }
+
+        .intro h2 {
+            margin-top: 8px;
+            font-size: 28px;
+        }
+
+        .intro p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+            margin-top: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 17px;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--green);
+            font-size: 22px;
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .project-preview {
+            height: 135px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    #15251f,
+                    #07100c
+                );
+            font-size: 42px;
+        }
+
+        .project-info {
+            padding: 13px;
+        }
+
+        .project-info h3 {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .project-info p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .project-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-top: 12px;
+        }
+
+        .project-actions button {
+            min-height: 40px;
+            border-radius: 10px;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .edit {
+            border: none;
+            background: var(--green);
+            color: #00150d;
+            font-weight: bold;
+        }
+
+        .delete {
+            border: 1px solid rgba(255,80,80,.2);
+            background: transparent;
+            color: #ff8585;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            border: 1px dashed var(--border);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            font-size: 16px;
+        }
+
+        .empty p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+            margin-top: 8px;
+        }
+
+        .create-btn {
+            margin-top: 17px;
+            min-height: 48px;
+            padding: 0 22px;
+            border: none;
+            border-radius: 13px;
+            background: var(--green);
+            color: #00150d;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (min-width: 700px) {
+
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .projects {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .project-preview {
+                height: 155px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-inner">
+
+        <button
+            class="back"
+            id="backButton"
+            type="button"
+        >
+            ←
+        </button>
+
+        <div class="title">
+            <h1>📁 پروژه‌های من</h1>
+            <p>مدیریت قالب‌های ساخته‌شده</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="intro">
+
+        <small>MY PROJECTS</small>
+
+        <h2>
+            پروژه‌های خودت
+        </h2>
+
+        <p>
+            قالب‌هایی که ساخته یا ذخیره کرده‌ای
+            از اینجا قابل مدیریت خواهند بود.
+        </p>
+
+    </section>
+
+
+    <section class="stats">
+
+        <div class="stat">
+            <strong id="totalProjects">0</strong>
+            <span>کل پروژه‌ها</span>
+        </div>
+
+        <div class="stat">
+            <strong id="savedProjects">0</strong>
+            <span>ذخیره‌شده</span>
+        </div>
+
+    </section>
+
+
+    <h2 class="section-title">
+        پروژه‌های شما
+    </h2>
+
+
+    <section
+        class="projects"
+        id="projects"
+        style="display:none;"
+    ></section>
+
+
+    <section
+        class="empty"
+        id="empty"
+    >
+
+        <div class="empty-icon">
+            📁
+        </div>
+
+        <h3>
+            هنوز پروژه‌ای نداری
+        </h3>
+
+        <p>
+            اولین قالب خودت را بساز و پروژه‌ات
+            را اینجا مدیریت کن.
+        </p>
+
+        <button
+            class="create-btn"
+            id="createButton"
+            type="button"
+        >
+            🎨 شروع ساخت قالب
+        </button>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const projectsContainer =
+        document.getElementById("projects");
+
+    const empty =
+        document.getElementById("empty");
+
+    const totalProjects =
+        document.getElementById("totalProjects");
+
+    const savedProjects =
+        document.getElementById("savedProjects");
+
+
+    function getProjects() {
+
+        try {
+
+            const data =
+                localStorage.getItem(
+                    "ghost_projects"
+                );
+
+            return data
+                ? JSON.parse(data)
+                : [];
+
+        } catch {
+
+            return [];
+
+        }
+    }
+
+
+    function saveProjects(projects) {
+
+        localStorage.setItem(
+            "ghost_projects",
+            JSON.stringify(projects)
+        );
+
+    }
+
+
+    function renderProjects() {
+
+        const projects =
+            getProjects();
+
+        totalProjects.textContent =
+            projects.length;
+
+        savedProjects.textContent =
+            projects.length;
+
+
+        projectsContainer.innerHTML = "";
+
+
+        if (projects.length === 0) {
+
+            projectsContainer.style.display =
+                "none";
+
+            empty.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        empty.style.display =
+            "none";
+
+        projectsContainer.style.display =
+            "grid";
+
+
+        projects.forEach((project, index) => {
+
+            const card =
+                document.createElement("article");
+
+            card.className = "project";
+
+
+            card.innerHTML = `
+                <div class="project-preview">
+                    ${project.icon || "🌐"}
+                </div>
+
+                <div class="project-info">
+
+                    <h3>
+                        ${escapeHTML(project.name || "پروژه بدون نام")}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(project.description || "قالب ساخته‌شده با Ghost Template Studio")}
+                    </p>
+
+                    <div class="project-actions">
+
+                        <button
+                            class="edit"
+                            type="button"
+                            data-index="${index}"
+                        >
+                            ویرایش
+                        </button>
+
+                        <button
+                            class="delete"
+                            type="button"
+                            data-index="${index}"
+                        >
+                            حذف
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+
+            projectsContainer.appendChild(card);
+
+        });
+
+
+        document
+            .querySelectorAll(".edit")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        alert(
+                            "ویرایشگر این پروژه در مرحله بعد فعال می‌شود."
+                        );
+
+                    }
+                );
+
+            });
+
+
+        document
+            .querySelectorAll(".delete")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const index =
+                            Number(button.dataset.index);
+
+                        const projects =
+                            getProjects();
+
+                        projects.splice(index, 1);
+
+                        saveProjects(projects);
+
+                        renderProjects();
+
+                    }
+                );
+
+            });
+
+    }
+
+
+    function escapeHTML(text) {
+
+        return String(text)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
+    }
+
+
+    document
+        .getElementById("createButton")
+        .addEventListener("click", () => {
+
+            window.location.href =
+                "builder.html";
+
+        });
+
+
+    document
+        .getElementById("backButton")
+        .addEventListener("click", () => {
+
+            window.location.href =
+                "studio.html";
+
+        });
+
+
+    renderProjects();
+
+</script>
+
+</body>
+</html>
