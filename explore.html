@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | Ghost Template Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #050806;
+            --card: #0b100e;
+            --card2: #101713;
+            --green: #00ff99;
+            --text: #ffffff;
+            --muted: #89958f;
+            --border: rgba(0, 255, 153, .13);
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(0,255,153,.12),
+                    transparent 35%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Tahoma, Arial, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 30px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(5,8,6,.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .brand {
+            flex: 1;
+        }
+
+        .brand h1 {
+            font-size: 17px;
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 25px 16px;
+        }
+
+        .hero {
+            margin-bottom: 22px;
+        }
+
+        .hero small {
+            color: var(--green);
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .hero h2 {
+            margin-top: 8px;
+            font-size: clamp(26px, 8vw, 40px);
+            line-height: 1.35;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-top: 8px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .search-box input {
+            width: 100%;
+            min-height: 52px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            padding: 0 48px 0 15px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(0,255,153,.45);
+            box-shadow: 0 0 0 3px rgba(0,255,153,.05);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 15px;
+            color: var(--green);
+            font-size: 20px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            flex: 0 0 auto;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: #89958f;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .category.active {
+            background: var(--green);
+            color: #00150d;
+            border-color: var(--green);
+            font-weight: bold;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+        }
+
+        .template-count {
+            color: var(--green);
+            font-size: 11px;
+        }
+
+        .templates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .template-card {
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .template-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0,255,153,.35);
+        }
+
+        .preview {
+            height: 140px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    #15251f,
+                    #07100c
+                );
+            font-size: 42px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            background: rgba(0,255,153,.13);
+            color: var(--green);
+            border: 1px solid rgba(0,255,153,.2);
+            border-radius: 8px;
+            padding: 5px 7px;
+            font-size: 9px;
+        }
+
+        .template-info {
+            padding: 13px;
+        }
+
+        .template-info h3 {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .template-info p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.6;
+            min-height: 32px;
+        }
+
+        .creator {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        .creator-avatar {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #15251f;
+            border: 1px solid var(--border);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 11px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,.05);
+            color: #68736d;
+            font-size: 9px;
+        }
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px dashed var(--border);
+            border-radius: 18px;
+            color: var(--muted);
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        @media (min-width: 700px) {
+
+            .templates {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .preview {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-inner">
+
+        <button
+            class="back-btn"
+            id="backButton"
+            type="button"
+        >
+            ←
+        </button>
+
+        <div class="brand">
+            <h1>🔍 Explore</h1>
+            <p>کشف قالب‌های Ghost</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <small>GHOST TEMPLATE STUDIO</small>
+
+        <h2>
+            قالب‌های جذاب رو کشف کن ✨
+        </h2>
+
+        <p>
+            قالب موردنظرت رو پیدا کن، ببین،
+            ذخیره کن و برای پروژه خودت استفاده کن.
+        </p>
+
+    </section>
+
+
+    <div class="search-box">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            id="searchInput"
+            type="search"
+            placeholder="جستجوی قالب..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div class="categories">
+
+        <button
+            class="category active"
+            data-category="all"
+            type="button"
+        >
+            ✨ همه
+        </button>
+
+        <button
+            class="category"
+            data-category="portfolio"
+            type="button"
+        >
+            💼 نمونه‌کار
+        </button>
+
+        <button
+            class="category"
+            data-category="gaming"
+            type="button"
+        >
+            🎮 گیمینگ
+        </button>
+
+        <button
+            class="category"
+            data-category="store"
+            type="button"
+        >
+            🛒 فروشگاهی
+        </button>
+
+        <button
+            class="category"
+            data-category="business"
+            type="button"
+        >
+            🏢 شرکتی
+        </button>
+
+        <button
+            class="category"
+            data-category="landing"
+            type="button"
+        >
+            🚀 Landing
+        </button>
+
+        <button
+            class="category"
+            data-category="blog"
+            type="button"
+        >
+            📰 وبلاگ
+        </button>
+
+        <button
+            class="category"
+            data-category="education"
+            type="button"
+        >
+            🎓 آموزشی
+        </button>
+
+    </div>
+
+
+    <section>
+
+        <div class="section-header">
+
+            <h2>قالب‌های منتشرشده</h2>
+
+            <span
+                class="template-count"
+                id="templateCount"
+            >
+                8 قالب
+            </span>
+
+        </div>
+
+
+        <div
+            class="templates"
+            id="templates"
+        >
+
+            <!-- Portfolio -->
+
+            <article
+                class="template-card"
+                data-category="portfolio"
+                data-name="Modern Portfolio"
+            >
+
+                <div class="preview">
+                    💼
+                    <span class="badge">جدید</span>
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Modern Portfolio</h3>
+
+                    <p>
+                        قالب مدرن برای نمایش نمونه‌کار
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Gaming -->
+
+            <article
+                class="template-card"
+                data-category="gaming"
+                data-name="Gaming Arena"
+            >
+
+                <div class="preview">
+                    🎮
+                    <span class="badge">ویژه</span>
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Gaming Arena</h3>
+
+                    <p>
+                        طراحی حرفه‌ای برای سایت گیمینگ
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Store -->
+
+            <article
+                class="template-card"
+                data-category="store"
+                data-name="Modern Store"
+            >
+
+                <div class="preview">
+                    🛒
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Modern Store</h3>
+
+                    <p>
+                        فروشگاه آنلاین مدرن و ساده
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Business -->
+
+            <article
+                class="template-card"
+                data-category="business"
+                data-name="Business Pro"
+            >
+
+                <div class="preview">
+                    🏢
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Business Pro</h3>
+
+                    <p>
+                        قالب رسمی برای کسب‌وکارها
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Landing -->
+
+            <article
+                class="template-card"
+                data-category="landing"
+                data-name="Launch"
+            >
+
+                <div class="preview">
+                    🚀
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Launch</h3>
+
+                    <p>
+                        صفحه معرفی محصول و سرویس
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Blog -->
+
+            <article
+                class="template-card"
+                data-category="blog"
+                data-name="News Blog"
+            >
+
+                <div class="preview">
+                    📰
+                </div>
+
+                <div class="template-info">
+
+                    <h3>News Blog</h3>
+
+                    <p>
+                        قالب خبری و وبلاگی
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Education -->
+
+            <article
+                class="template-card"
+                data-category="education"
+                data-name="LearnHub"
+            >
+
+                <div class="preview">
+                    🎓
+                </div>
+
+                <div class="template-info">
+
+                    <h3>LearnHub</h3>
+
+                    <p>
+                        قالب آموزش و دوره آنلاین
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Portfolio -->
+
+            <article
+                class="template-card"
+                data-category="portfolio"
+                data-name="Creative Studio"
+            >
+
+                <div class="preview">
+                    🎨
+                </div>
+
+                <div class="template-info">
+
+                    <h3>Creative Studio</h3>
+
+                    <p>
+                        قالب خلاقانه برای طراحان
+                    </p>
+
+                    <div class="creator">
+                        <span class="creator-avatar">👻</span>
+                        Ghost Creator
+                    </div>
+
+                    <div class="stats">
+                        <span>♡ 0</span>
+                        <span>👁 0</span>
+                        <span>استفاده 0</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div
+            class="empty"
+            id="empty"
+        >
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+            <div>
+                قالبی با این مشخصات پیدا نشد.
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const categories =
+        document.querySelectorAll(".category");
+
+    const cards =
+        document.querySelectorAll(".template-card");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const count =
+        document.getElementById("templateCount");
+
+    const empty =
+        document.getElementById("empty");
+
+
+    let selectedCategory = "all";
+
+
+    function filterTemplates() {
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        let visible = 0;
+
+
+        cards.forEach(card => {
+
+            const category =
+                card.dataset.category;
+
+            const name =
+                card.dataset.name.toLowerCase();
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory;
+
+            const matchesSearch =
+                !search ||
+                name.includes(search);
+
+
+            if (
+                matchesCategory &&
+                matchesSearch
+            ) {
+
+                card.style.display = "block";
+                visible++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        count.textContent =
+            visible + " قالب";
+
+        empty.style.display =
+            visible === 0
+                ? "block"
+                : "none";
+    }
+
+
+    categories.forEach(category => {
+
+        category.addEventListener("click", () => {
+
+            categories.forEach(item => {
+                item.classList.remove("active");
+            });
+
+            category.classList.add("active");
+
+            selectedCategory =
+                category.dataset.category;
+
+            filterTemplates();
+
+        });
+
+    });
+
+
+    searchInput.addEventListener(
+        "input",
+        filterTemplates
+    );
+
+
+    cards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const name =
+                card.dataset.name;
+
+            alert(
+                "قالب «" +
+                name +
+                "» انتخاب شد.\n\n" +
+                "صفحه جزئیات قالب در مرحله بعد فعال می‌شود."
+            );
+
+        });
+
+    });
+
+
+    document
+        .getElementById("backButton")
+        .addEventListener("click", () => {
+
+            window.location.href =
+                "studio.html";
+
+        });
+
+
+    filterTemplates();
+
+</script>
+
+</body>
+                                         </html>
