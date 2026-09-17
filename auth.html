@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود | Ghost Template Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, #10251d 0%, #050806 38%, #020202 100%);
+            color: #fff;
+            font-family: Tahoma, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border: 2px solid #00ff99;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff99;
+            font-size: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 153, .15);
+        }
+
+        .logo h1 {
+            font-size: 25px;
+            color: #00ff99;
+        }
+
+        .logo p {
+            color: #888;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .auth-card {
+            background: rgba(15, 20, 18, .88);
+            border: 1px solid rgba(0, 255, 153, .16);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: #090d0b;
+            padding: 5px;
+            border-radius: 13px;
+            margin-bottom: 25px;
+        }
+
+        .tab {
+            border: none;
+            background: transparent;
+            color: #777;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: #00ff99;
+            color: #00150d;
+            font-weight: bold;
+        }
+
+        .form-title {
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .form-subtitle {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .field input {
+            width: 100%;
+            min-height: 48px;
+            border: 1px solid #222c27;
+            background: #080c0a;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0 14px;
+            outline: none;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        .field input:focus {
+            border-color: #00ff99;
+            box-shadow: 0 0 0 3px rgba(0, 255, 153, .08);
+        }
+
+        .submit-btn {
+            width: 100%;
+            min-height: 50px;
+            border: none;
+            border-radius: 13px;
+            background: #00ff99;
+            color: #00150d;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .submit-btn:active {
+            transform: scale(.98);
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(255, 70, 70, .1);
+            color: #ff8585;
+            border: 1px solid rgba(255, 70, 70, .2);
+        }
+
+        .message.success {
+            background: rgba(0, 255, 153, .08);
+            color: #00ff99;
+            border: 1px solid rgba(0, 255, 153, .2);
+        }
+
+        .footer {
+            text-align: center;
+            color: #555;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="logo">
+        <div class="logo-icon">👻</div>
+        <h1>Ghost Template Studio</h1>
+        <p>ساخت، شخصی‌سازی و انتشار قالب</p>
+    </div>
+
+    <div class="auth-card">
+
+        <div class="tabs">
+            <button class="tab active" id="loginTab" type="button">
+                ورود
+            </button>
+
+            <button class="tab" id="registerTab" type="button">
+                ثبت‌نام
+            </button>
+        </div>
+
+        <!-- Login -->
+        <form id="loginForm">
+
+            <h2 class="form-title">خوش برگشتی 👋</h2>
+
+            <p class="form-subtitle">
+                وارد حساب Ghost خودت شو.
+            </p>
+
+            <div class="field">
+                <label for="loginUsername">
+                    نام کاربری
+                </label>
+
+                <input
+                    id="loginUsername"
+                    type="text"
+                    placeholder="مثلاً ghost_user"
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="field">
+                <label for="loginPassword">
+                    رمز عبور
+                </label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="رمز عبور"
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <button class="submit-btn" type="submit">
+                ورود به حساب
+            </button>
+
+        </form>
+
+        <!-- Register -->
+        <form id="registerForm" class="hidden">
+
+            <h2 class="form-title">حساب جدید بساز 🚀</h2>
+
+            <p class="form-subtitle">
+                به جامعه سازندگان Ghost بپیوند.
+            </p>
+
+            <div class="field">
+                <label for="registerName">
+                    نام نمایشی
+                </label>
+
+                <input
+                    id="registerName"
+                    type="text"
+                    placeholder="مثلاً Ghost Creator"
+                >
+            </div>
+
+            <div class="field">
+                <label for="registerUsername">
+                    نام کاربری
+                </label>
+
+                <input
+                    id="registerUsername"
+                    type="text"
+                    placeholder="مثلاً ghost_user"
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="field">
+                <label for="registerPassword">
+                    رمز عبور
+                </label>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="حداقل ۶ کاراکتر"
+                    autocomplete="new-password"
+                >
+            </div>
+
+            <button class="submit-btn" type="submit">
+                ساخت حساب
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+    <div class="footer">
+        Ghost Template Studio • Create. Customize. Share.
+    </div>
+
+</div>
+
+<script>
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+
+    const message = document.getElementById("message");
+
+    function showMessage(text, type) {
+        message.textContent = text;
+        message.className = "message show " + type;
+    }
+
+    function clearMessage() {
+        message.textContent = "";
+        message.className = "message";
+    }
+
+    loginTab.addEventListener("click", () => {
+
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+
+        loginForm.classList.remove("hidden");
+        registerForm.classList.add("hidden");
+
+        clearMessage();
+    });
+
+    registerTab.addEventListener("click", () => {
+
+        registerTab.classList.add("active");
+        loginTab.classList.remove("active");
+
+        registerForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+
+        clearMessage();
+    });
+
+    registerForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("registerName").value.trim();
+
+        const username =
+            document.getElementById("registerUsername").value.trim();
+
+        const password =
+            document.getElementById("registerPassword").value;
+
+        if (!name || !username || !password) {
+            showMessage(
+                "لطفاً همه فیلدها را کامل کن.",
+                "error"
+            );
+            return;
+        }
+
+        if (password.length < 6) {
+            showMessage(
+                "رمز عبور باید حداقل ۶ کاراکتر باشد.",
+                "error"
+            );
+            return;
+        }
+
+        const user = {
+            name: name,
+            username: username,
+            password: password
+        };
+
+        localStorage.setItem(
+            "ghost_user",
+            JSON.stringify(user)
+        );
+
+        showMessage(
+            "حساب با موفقیت ساخته شد! در حال ورود...",
+            "success"
+        );
+
+        setTimeout(() => {
+            window.location.href = "studio.html";
+        }, 1200);
+    });
+
+    loginForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("loginUsername").value.trim();
+
+        const password =
+            document.getElementById("loginPassword").value;
+
+        const savedUser =
+            localStorage.getItem("ghost_user");
+
+        if (!savedUser) {
+            showMessage(
+                "هنوز حسابی ساخته نشده. ابتدا ثبت‌نام کن.",
+                "error"
+            );
+            return;
+        }
+
+        const user = JSON.parse(savedUser);
+
+        if (
+            username !== user.username ||
+            password !== user.password
+        ) {
+            showMessage(
+                "نام کاربری یا رمز عبور اشتباه است.",
+                "error"
+            );
+            return;
+        }
+
+        showMessage(
+            "ورود موفق بود! در حال ورود به استودیو...",
+            "success"
+        );
+
+        setTimeout(() => {
+            window.location.href = "studio.html";
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
